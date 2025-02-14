@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Me and You</title>
-    <link rel="icon" type="image/png" href="images/favcon.png">
+    <title>You and Me</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favcon.png"> <!-- Replace with your favicon path -->
     <style>
         /* Set the background image */
         body {
             margin: 0;
             padding: 0;
-            height: 100vh;
+            min-height: 200vh; /* Make the page scrollable for testing */
             background-image: url('images/fullbg.png'); /* Background image */
             background-size: cover;
             background-position: center;
@@ -19,14 +20,15 @@
 
         /* Style the top image */
         #top-image {
-            width: 30%; /* Relative to the background size */
+            width: 10%; /* Relative to the background size */
             height: auto; /* Maintain aspect ratio */
             cursor: pointer;
             position: fixed; /* Fixed positioning to stay in the same place */
-            top: 77%; /* Center vertically */
-            left: 47%; /* Center horizontally */
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
             transform: translate(-50%, -50%); /* Center the image */
             object-fit: contain; /* Ensure the image fits within the fixed dimensions */
+            z-index: 10; /* Ensure it stays on top of other elements */
         }
 
         /* Keyframes for the rotation animation */
@@ -56,6 +58,7 @@
             cursor: pointer;
             top: 50%; /* Adjust position as needed */
             left: 30%; /* Adjust position as needed */
+            z-index: 5; /* Ensure it's below the top image */
         }
 
         /* Pop-up image styling */
@@ -67,6 +70,7 @@
             top: 50%; /* Center the pop-up image */
             left: 50%;
             transform: translate(-50%, -50%);
+            z-index: 20; /* Ensure it stays on top of everything */
         }
     </style>
 </head>
@@ -79,6 +83,9 @@
 
     <!-- Clickable area on the background -->
     <div class="click-area" id="click-area"></div>
+
+    <!-- Dummy content to make the page scrollable -->
+    <div style="height: 200vh; background: rgba(0, 0, 0, 0.1);"></div>
 
     <script>
         // Add click event listener to the clickable area
