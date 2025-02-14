@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Area Animation</title>
+    <style>
+        /* Set the background image */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('images/fullbg.png'); /* Background image */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        /* Style the top image */
+        #top-image {
+            width: 500px; /* Adjust size as needed */
+            height: auto;
+            cursor: pointer;
+            position: fixed; /* Fixed positioning to stay in the same place */
+            top: 77%; /* Adjust vertical position */
+            left: 47%; /* Adjust horizontal position */
+            transform: translate(-50%, -50%); /* Center the image */
+        }
+
+        /* Keyframes for the rotation animation */
+        @keyframes tilt {
+            0%, 100% {
+                transform: translate(-50%, -50%) rotate(0deg); /* Start and end at 0 degrees */
+            }
+            33% {
+                transform: translate(-50%, -50%) rotate(15deg); /* Tilt 10 degrees up */
+            }6
+            67% {
+                transform: translate(-50%, -50%) rotate(-15deg); /* Tilt 10 degrees down */
+            }
+        }
+
+        /* Animation class */
+        .tilt-animation {
+            animation: tilt 1s ease-in-out 4; /* Run the animation 4 times */
+        }
+
+        /* Clickable area on the background */
+        .click-area {
+            position: absolute;
+            width: 100px; /* Size of the clickable area */
+            height: 100px;
+            background-color: rgba(255, 0, 0, 0.3); /* Semi-transparent red for visualization */
+            cursor: pointer;
+            top: 50%; /* Adjust position as needed */
+            left: 30%; /* Adjust position as needed */
+        }
+
+        /* Pop-up image styling */
+        #popup-image {
+            position: fixed; /* Fixed positioning to stay in the same place */
+            width: 150px; /* Adjust size as needed */
+            height: auto;
+            display: none; /* Hidden by default */
+            top: 50%; /* Center the pop-up image */
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top image -->
+    <img id="top-image" src="images/foxtail.png" alt="Top Image"> <!-- Top image -->
+
+    <!-- Pop-up image -->
+    <img id="popup-image" src="images/foxtext.png" alt="Popup Image"> <!-- Pop-up image -->
+
+    <!-- Clickable area on the background -->
+    <div class="click-area" id="click-area"></div>
+
+    <script>
+        // Add click event listener to the clickable area
+        const clickArea = document.getElementById('click-area');
+        const topImage = document.getElementById('top-image');
+        const popupImage = document.getElementById('popup-image');
+
+        clickArea.addEventListener('click', () => {
+            // Add the animation class to the top image
+            topImage.classList.add('tilt-animation');
+
+            // Show the pop-up image
+            popupImage.style.display = 'block';
+
+            // Hide the pop-up image after 10 seconds
+            setTimeout(() => {
+                popupImage.style.display = 'none';
+            }, 10000); // 10 seconds in milliseconds
+
+            // Remove the animation class after the animation ends
+            topImage.addEventListener('animationend', () => {
+                topImage.classList.remove('tilt-animation');
+            }, { once: true }); // Ensure the event listener is removed after running once
+        });
+    </script>
+</body>
+</html>
