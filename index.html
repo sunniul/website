@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>You and Me</title>
+    <title>Click Area Animation</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/favcon.png"> <!-- Replace with your favicon path -->
+    <link rel="icon" type="image/png" href="images/favicon.png"> <!-- Replace with your favicon path -->
     <style>
-        /* Set the background image */
-        body {
+        /* Disable scrolling */
+        html, body {
             margin: 0;
             padding: 0;
-            min-height: 200vh; /* Make the page scrollable for testing */
+            overflow: hidden; /* Disable scrolling */
+            height: 100%; /* Ensure the body takes up the full viewport height */
+        }
+
+        /* Set the background image */
+        body {
             background-image: url('images/fullbg.png'); /* Background image */
             background-size: cover;
             background-position: center;
@@ -83,9 +88,6 @@
 
     <!-- Clickable area on the background -->
     <div class="click-area" id="click-area"></div>
-
-    <!-- Dummy content to make the page scrollable -->
-    <div style="height: 200vh; background: rgba(0, 0, 0, 0.1);"></div>
 
     <script>
         // Add click event listener to the clickable area
