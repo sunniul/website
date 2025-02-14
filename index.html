@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>You and Me</title>
+    <title>Will you be my Valentine?</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/favcon.png"> <!-- Replace with your favicon path -->
+    <link rel="icon" type="image/png" href="images/favcon.png"> <!-- Updated favicon path -->
     <style>
         /* Disable scrolling */
         html, body {
@@ -25,12 +25,12 @@
 
         /* Style the top image */
         #top-image {
-            width: 50vw; /* Relative to the background size */
+            width: 50vw; /* Relative to the viewport width */
             height: auto; /* Maintain aspect ratio */
             cursor: pointer;
             position: fixed; /* Fixed positioning to stay in the same place */
-            top: 76%; /* Center vertically */
-            left: 47%; /* Center horizontally */
+            top: 76%; /* Adjust vertical position */
+            left: 47%; /* Adjust horizontal position */
             transform: translate(-50%, -50%); /* Center the image */
             object-fit: contain; /* Ensure the image fits within the fixed dimensions */
             z-index: 10; /* Ensure it stays on top of other elements */
@@ -57,25 +57,53 @@
         /* Clickable area on the background */
         .click-area {
             position: absolute;
-            width: 40%; /* Relative to the background size */
+            width: 25%; /* Relative to the background size */
             height: 10%; /* Relative to the background size */
             background-color: rgba(255, 0, 0, 0.05); /* Semi-transparent red for visualization */
             cursor: pointer;
             top: 70%; /* Adjust position as needed */
-            left: 20%; /* Adjust position as needed */
-            z-index: 25; /* Ensure it's below the top image */
+            left: 23%; /* Adjust position as needed */
+            z-index: 35; /* Ensure it's below the top image */
+        }
+
+        /* Second clickable area */
+        .click-area-2 {
+            position: absolute;
+            width: 10%; /* Relative to the background size */
+            height: 20%; /* Relative to the background size */
+            background-color: rgba(0, 255, 0, 0.01); /* Semi-transparent green for visualization */
+            cursor: pointer;
+            top: 58%; /* Adjust position as needed */
+            left: 52.5%; /* Adjust position as needed */
+            z-index: 35; /* Ensure it's below the top image */
         }
 
         /* Pop-up image styling */
         #popup-image {
             position: fixed; /* Fixed positioning to stay in the same place */
-            width: 15%; /* Relative to the background size */
+            width: 1%; /* Relative to the background size */
             height: auto;
             display: none; /* Hidden by default */
             top: 50%; /* Center the pop-up image */
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 20; /* Ensure it stays on top of everything */
+            opacity: 0; /* Start with 0 opacity */
+            <!-- transition: opacity 1s ease-in-out; /* Smooth fade transition */ -->
+        }
+
+        /* Full-screen overlay image styling */
+        #overlay-image {
+            position: fixed; /* Fixed positioning to cover the entire screen */
+            top: 0;
+            left: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            object-fit: cover; /* Ensure the image covers the entire screen */
+            display: none; /* Hidden by default */
+            z-index: 30; /* Ensure it stays on top of everything */
+            opacity: 0; /* Start with 0 opacity */
+            transition: opacity 1s ease-in-out; /* Smooth fade transition */
         }
     </style>
 </head>
@@ -86,11 +114,17 @@
     <!-- Pop-up image -->
     <img id="popup-image" src="images/foxtext.png" alt="Popup Image"> <!-- Pop-up image -->
 
+    <!-- Full-screen overlay image -->
+    <img id="overlay-image" src="images/overlay.png" alt="Overlay Image"> <!-- Overlay image -->
+
     <!-- Clickable area on the background -->
     <div class="click-area" id="click-area"></div>
 
+    <!-- Second clickable area -->
+    <div class="click-area-2" id="click-area-2"></div>
+
     <script>
-        // Add click event listener to the clickable area
+        // Add click event listener to the first clickable area
         const clickArea = document.getElementById('click-area');
         const topImage = document.getElementById('top-image');
         const popupImage = document.getElementById('popup-image');
@@ -101,16 +135,42 @@
 
             // Show the pop-up image
             popupImage.style.display = 'block';
+            setTimeout(() => {
+                popupImage.style.opacity = 1; // Fade in
+            }, 10); // Small delay to allow display change
 
             // Hide the pop-up image after 10 seconds
             setTimeout(() => {
-                popupImage.style.display = 'none';
+                popupImage.style.opacity = 0; // Fade out
+                setTimeout(() => {
+                    popupImage.style.display = 'none';
+                }, 1000); // Wait for fade-out transition to complete
             }, 10000); // 10 seconds in milliseconds
 
             // Remove the animation class after the animation ends
             topImage.addEventListener('animationend', () => {
                 topImage.classList.remove('tilt-animation');
             }, { once: true }); // Ensure the event listener is removed after running once
+        });
+
+        // Add click event listener to the second clickable area
+        const clickArea2 = document.getElementById('click-area-2');
+        const overlayImage = document.getElementById('overlay-image');
+
+        clickArea2.addEventListener('click', () => {
+            // Show the full-screen overlay image
+            overlayImage.style.display = 'block';
+            setTimeout(() => {
+                overlayImage.style.opacity = 0.5; // Fade in
+            }, 10); // Small delay to allow display change
+
+            // Hide the overlay image after 10 seconds
+            setTimeout(() => {
+                overlayImage.style.opacity = 0; // Fade out
+                setTimeout(() => {
+                    overlayImage.style.display = 'none';
+                }, 1000); // Wait for fade-out transition to complete
+            }, 10000); // 10 seconds in milliseconds
         });
     </script>
 </body>
